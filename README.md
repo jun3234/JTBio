@@ -5,8 +5,6 @@
  Some scripts are cloned and modified from others'. 
  And the sources are not listed at present.
  If infringement, please contact us to delete.
-<<<<<<< Updated upstream
-=======
 
 # haha
->>>>>>> Stashed changes
+ If infringement, please contact us to delete.
