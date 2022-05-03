@@ -1,17 +1,17 @@
 #! usr/bin/env python
+# -*- coding: UTF-8 -*-
 
 """
-<<未完成>>
+split contig into slices, and transfer gff to those slices
 """
 
 import sys
 import argparse
 import collections
-
 import JTBio.gff.gff3 as gff
 
 
-## function
+# function
 def read_break_point(input):
     """ read break_point.txt file
     """
@@ -25,7 +25,7 @@ def read_break_point(input):
     return D
 
 
-##parameter
+# parameter
 parser = argparse.ArgumentParser()
 parser.add_argument("-g", dest="gff3_file", type=str, required=True,
                     help="the input gff3 file")
@@ -36,22 +36,22 @@ parser.add_argument("--outfile", dest="out", type=argparse.FileType('w'),
 args = parser.parse_args()
 
 
-## read in gff3
+# read in gff3
 GFF = gff.GFF3(args.gff3_file)
 GFF.load()  # store in GFF.gff3 attribute
 
-## read in break point
+# read in break point
 bp_dict = read_break_point(args.break_point)
 
 
-## handle
+# handle
 for Chr in GFF.mcgff:
-    seqn = mcgff.seqid
-    gene = mcgff.gene
+    seqn = GFF.mcgff.seqid
+    gene = GFF.mcgff.gene
     for line in GFF.gff3[gene]:
 
         # start coord
-        bplist = bp_dict[seqn][:]   # copy list
+        bplist = bp_dict[seqn][:]
         bplist.append((line.start, ))
         bplist.sort(key=lambda x:int(x[0]))
         str_ind = bplist.index((line.start, ))
@@ -68,8 +68,8 @@ for Chr in GFF.mcgff:
 
         # output
         #print(bplist[ind], bp_dict[seqn][ind - 1])
-        line = line._replace(seqid="%s_chunk%s" % (seqn, gap_num),
-                             start=int(line.start) - int(crd_should_reduce),
-                             end=int(line.end) - int(crd_should_reduce))
+        #line = line._replace(seqid="%s_chunk%s" % (seqn, gap_num),
+         #                    start=int(line.start) - int(crd_should_reduce),
+          #                   end=int(line.end) - int(crd_should_reduce))
 
         gff.linedata2print(line, fileout=args.out)

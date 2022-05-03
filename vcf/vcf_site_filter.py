@@ -43,7 +43,7 @@ def filter_vcf(vcf, site, outfile):
     ##
     L = read_4fold_info(site)
     print("read 4fold site %s." % len(L), file=sys.stderr)
-    L.sort(key=lambda x: (int(x[0][3:]), int(x[-1])))
+    L.sort(key=lambda x: (x[0], int(x[-1])))
     print("sorted site according (chr, pos)...", file=sys.stderr)
 
     ##
